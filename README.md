@@ -13,10 +13,4 @@ Example:
 const beautyModel = await tf.loadLayersModel("https://rebo-85.github.io/Model-Server/beauty_predict/model.json");
 ```
 
-## Structure
-
-- beauty_predict/
-- face-api.js/
-- sudoku/
-
-See [GitHub](https://github.com/rebo-85/Model-Server) for details.
+See [GitHub Pages](https://rebo-85.github.io/Model-Server/) for model lists.
