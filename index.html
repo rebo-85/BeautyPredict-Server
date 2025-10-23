@@ -31,6 +31,40 @@
       border-radius: 4px;
       color: #60a5fa;
     }
+    #file-list {
+      margin: 2rem 0 1rem 0;
+      max-height: 320px;
+      overflow-y: auto;
+      width: 320px;
+      background: #1e293b;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: left;
+      font-size: 1rem;
+    }
+    .model-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      background: #273449;
+      border-radius: 4px;
+      padding: 0.3em 0.6em;
+    }
+    .copy-btn {
+      background: #334155;
+      color: #60a5fa;
+      border: none;
+      border-radius: 3px;
+      padding: 0.2em 0.7em;
+      cursor: pointer;
+      font-size: 0.95em;
+      margin-left: 0.7em;
+      transition: background 0.15s;
+    }
+    .copy-btn:active {
+      background: #1e293b;
+    }
   </style>
 </head>
 <body>
@@ -38,5 +72,42 @@
   <p>This repository hosts pre-trained models for client-side use.</p>
   <p>Access model files directly via <code>https://rebo-85.github.io/Model-Server/path/to/model/model.json</code></p>
   <a href="https://github.com/rebo-85/Model-Server" target="_blank" rel="noopener">GitHub Repository</a>
+  <div id="file-list"></div>
+  <script>
+    const repoApi = 'https://api.github.com/repos/rebo-85/Model-Server/git/trees/main?recursive=1'
+    const baseUrl = 'https://rebo-85.github.io/Model-Server/'
+    const fileList = document.getElementById('file-list')
+
+    fetch(repoApi)
+      .then(r => r.json())
+      .then(tree => {
+        const models = tree.tree.filter(f => f.path.endsWith('model.json'))
+        if (!models.length) {
+          fileList.textContent = 'No model.json files found.'
+          return
+        }
+        models.forEach(f => {
+          const url = baseUrl + f.path
+          const row = document.createElement('div')
+          row.className = 'model-link'
+          const link = document.createElement('span')
+          link.textContent = f.path
+          const btn = document.createElement('button')
+          btn.className = 'copy-btn'
+          btn.textContent = 'Copy link'
+          btn.onclick = () => {
+            navigator.clipboard.writeText(url)
+            btn.textContent = 'Copied!'
+            setTimeout(() => btn.textContent = 'Copy link', 1200)
+          }
+          row.appendChild(link)
+          row.appendChild(btn)
+          fileList.appendChild(row)
+        })
+      })
+      .catch(() => {
+        fileList.textContent = 'Failed to load file list.'
+      })
+  </script>
 </body>
 </html>
