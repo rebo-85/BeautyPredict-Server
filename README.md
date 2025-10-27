@@ -1,16 +1,14 @@
-# Model-Server
+# 🌐 ReBo CDN
 
-Pre-trained models for browser-side ML, mainly TensorFlow.js.
+A simple and reliable content delivery repository for hosting and serving public assets — such as scripts, styles, JSON data, images, and other static resources — used across my projects.
 
-## Usage
+---
 
-Access models at  
-`https://rebo-85.github.io/Model-Server/path/to/model/model.json`
+## 🚀 Overview
 
-Example:
+This repository acts as a **personal CDN (Content Delivery Network)** for quick and versioned access to files online.  
+All files stored here are intended for public use via direct links (e.g., through [jsDelivr](https://www.jsdelivr.com/) or [GitHub Pages](https://pages.github.com/)).
 
-```js
-const beautyModel = await tf.loadLayersModel("https://rebo-85.github.io/Model-Server/beauty_predict/model.json");
-```
+---
 
-See [Web Server](https://rebo-85.github.io/Model-Server/) for model list.
+## 📁 Structure
